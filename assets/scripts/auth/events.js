@@ -6,16 +6,18 @@ const ui = require('../uifiles/ui');
 // call the api
 const onSignUp = function (event) {
   event.preventDefault()
-  const data = getFormFields(this)
+  const data = getFormFields(this);
+
+  ui.showProgress();
 
   api.signUp(data)
     .then(() => {
-      clearFields();
+      clearFields(); ui.hideProgress();
       showModalMessage('UserRegistrated');
       console.log('sign up ran!');
     })
     .catch((error) => {
-      showModalMessage('error', error);
+      ui.hideProgress(); showModalMessage('error', error);
     });
 
 }
@@ -38,7 +40,7 @@ const onSignIn = function (event) {
 
     })
     .catch((error) => {
-      ui.hideProgress(); showModalMessage('error', error);
+      ui.hideProgress(); ui.showModalMessage('error', error);
     });
 
   }, 1000);
@@ -51,12 +53,14 @@ const onChangePassword = function (event) {
 
   $('#modal-change-password, .modal-backdrop').remove();
 
+  ui.showProgress();
+
   api.changePassword(data)
     .then(() => {
-      showModalMessage('success')
+      ui.hideProgress(); ui.showModalMessage('success')
     })
     .catch((error) => {
-      showModalMessage('error', error);
+      ui.hideProgress(); ui.showModalMessage('error', error);
     });
 
   console.log('changing password in ran!')
@@ -66,16 +70,18 @@ const onSignOut = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
 
+  ui.hideProgress();
+
   api.signOut(data)
     .then(() => {
-      clearFields();
+      clearFields(); ui.hideProgress();
       $('#logged-user,#div-content').hide();
       $('#div-content-account').fadeIn();
       $('#logged-user').fadeOut();
       $('#user-email').text(''), store.user = null;
     })
     .catch((error) => {
-      showModalMessage('error', error);
+      ui.hideProgress(); ui.showModalMessage('error', error);
     });
 
   console.log('sign out ran!')
@@ -88,42 +94,16 @@ const showPasswordForm = () => {
     keyboard: false
   });
 }
-const showBoard = () => {
-  $('#game-board').fadeIn();
-}
 /* clear fields */
 const clearFields = () => {
   $('.form-control').val('');
 }
-/* show the message modal */
-const showModalMessage = (type, error) => {
-
-  $('#myModal').modal({
-    backdrop: 'static',
-    keyboard: false
-  });
-
-  switch (type) {
-    case 'UserRegistrated':
-      $('#modal-message').text('Thank you for sign In in Tic Tac Toe Game :)');
-      break;
-    case 'success':
-      $('#modal-message').text('Your request was successful :)');
-      break;
-      case 'error':
-      $('#modal-message').text(`Something went wrong :( error: ${JSON.stringify(error)}`);
-      break;
-    default:
-      return;
-  }
-}
-// manage the event
+// manage the events
 const addHandlers = () => {
   $('#sign-up').on('submit', onSignUp);
   $('#sign-in').on('submit', onSignIn);
   $('#change-password').on('submit', onChangePassword);
   $('#sign-out').on('click', onSignOut);
-  $('#show-board').on('click',  showBoard);
   $('#show-change-password').on('click', showPasswordForm);
 }
 

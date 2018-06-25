@@ -20,7 +20,10 @@
       font-weight: bold;
       margin-top: 16px;
     }
-
+    .modal-img {
+      width: 34px;
+      height: 34px;
+    }
     .shadow {
       background-color: #fff;
       border: 1px solid #eee;
@@ -32,11 +35,15 @@
     .font-16 {
       font-size: 16px;
     }
-
+    .width-20-percent {
+      width: 20%;
+    }
     .top-70 {
       margin-top: 70px;
     }
-
+    .top-10 {
+      margin-top: 10px;
+    }
     .top-100 {
       margin-top: 100px;
     }
@@ -150,8 +157,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <br />
-                <a id="show-change-password" href="#">Change password</a>
+                <a class="top-10" id="show-change-password" href="#">Change password</a>
               </li>
               <li role="separator" class="divider"></li>
               <li>
@@ -233,57 +239,55 @@
     </div>
   </div>
   <div id="div-content" class="container-fluid" style="display: none">
-    <div class="col-md-2 shadow top-70 left-10-percent" style="min-height: 100px">
-      <h5 class="font-16">Game options</h5>
-      <table class="table">
-        <tr>
-          <td><a id="show-board" href="#">New game</a></td>
-        </tr>
-        <tr>
-            <td><a href="#">Reset game</a></td>
-          </tr>
-      </table>
+    <div class="col-md-2 top-70 left-10-percent" style="min-height: 100px">
+      <div class="shadow">
+          <h5 class="font-16">Game options</h5>
+          <table class="table">
+            <tr>
+              <td><a id="show-board" href="#">New game</a></td>
+            </tr>
+            <tr>
+                <td><a id="reset-board" href="#">Reset game</a></td>
+              </tr>
+          </table>
+      </div>
+      <br /><br />
+      <div id="div-score" class="shadow" style="display: none">
+          <h5 class="font-16">Score board</h5>
+          <table class="table">
+            <tr><td><br /></td></tr>
+            <tr>
+              <td><a href="#">Player (x)</a><span id="score_x" class="label label-info pull-right">0</span></td>
+            </tr>
+            <tr>
+                <td><a href="#">Player (o)</a><span id="score_o" class="label label-info pull-right">0</span></td>
+            </tr>
+            <tr><td><br /></td></tr>
+            <tr>
+                <td><a href="#">Tie games</a><span id="tie-games" class="label label-warning pull-right">0</span></td>
+            </tr>
+          </table>
+      </div>
     </div>
-    <div id="game-board" class="col-md-5 shadow top-70 left-5-percent" style="display: none">
+    <div id="game-board" class="col-md-5 shadow top-70 left-5-percent" style="display: none; min-height: 450px">
         <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
             <br>
             <div class="game-panel">
-
-              <div class="tic-tac-toe">
-                <table class="scoreboard">
-                  <tr>
-                    <td> Player 1 </td>
-                    <td width="30"> &nbsp; </td>
-                    <td> Player 2 </td>
-                  </tr>
-                  <tr>
-                    <td class="score X">
-                      0
-                    </td>
-                    <td> &nbsp; </td>
-                    <td class="score O">
-                      0
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="board"></div>
-
-                <button class="btn-reset"> Reset </button>
-
-                <select class="grid-options">
-                  <option value="3" selected> 3 X 3 </option>
-                  <option value="4"> 4 X 4 </option>
-                  <option value="5"> 5 X 5 </option>
+              <span>Select grid size</span>
+                &nbsp;
+                <select id="selectsize" class="width-20-percent">
+                    <option value="0" selected> Select size</option>
+                    <option value="3"> 3 X 3 </option>
+                    <option value="4"> 4 X 4 </option>
+                    <option value="5"> 5 X 5 </option>
                 </select>
+                <hr />
+              <div class="tic-tac-toe">
+                <div class="board"></div>
               </div>
-
             </div>
           </div>
     </div>
-    <!-- <div class="col-md-7 top-70 left-5-percent">
-      hola 2
-    </div> -->
   </div>
   <!-- /.container-fluid -->
   <!-- Modals -->
@@ -336,16 +340,11 @@
     <!-- ./ change password modal -->
     <!-- ./ progress modal -->
   <div class="modal fade" id="modal-progress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Tic tac toe</h4>
-          </div>
           <div class="modal-body">
-            <span>Loading...</span>
+            <span><img class="modal-img" src="assets/img/ajax-loader1.gif" />&nbsp; Loading please wait</span>
+            <br />
           </div>
         </div>
       </div>
