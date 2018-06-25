@@ -25,6 +25,7 @@ const signIn = function (data) {
   });
 
 }
+/* Change password */
 const changePassword = function (data) {
   return $.ajax({
     url: config.apiUrl + '/change-password',
@@ -33,7 +34,6 @@ const changePassword = function (data) {
       Authorization: 'Token token=' + store.user.token
     },
     data
-    // data: data
   })
 }
 

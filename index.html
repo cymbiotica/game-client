@@ -231,39 +231,6 @@
         </div>
       </div>
     </div>
-    <!-- change password -->
-    <div id="change-password-form" class="col-md-3 shadow top-100" style="display: none">
-      <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
-        <ul class="nav nav-tabs" id="myTabs" role="tablist">
-          <li role="presentation" class="active">
-            <a href="#" class="font-16" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Change password</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-
-          <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
-            <br>
-            <form id="change-password" class="form-signup">
-              <h4 class="form-signin-heading">Change your password</h4>
-              <label class="label-form">Old password</label>
-              <input type="password" name="passwords[old]" class="form-control" placeholder="Old password">
-              <label class="label-form">New password</label>
-              <input type="password" name="passwords[new]" class="form-control" placeholder="New password">
-              <br />
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="remember-me"> Remember me
-                </label>
-              </div>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-              <br />
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!-- ./ change password -->
   </div>
   <div id="div-content" class="container-fluid" style="display: none">
     <div class="col-md-2 shadow top-70 left-10-percent" style="min-height: 100px">
@@ -338,6 +305,36 @@
       </div>
     </div>
   </div>
+  <!-- change password modal -->
+  <div class="modal fade" id="modal-change-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Tic tac toe</h4>
+          </div>
+          <div class="modal-body">
+              <br>
+              <form id="change-password" class="form-signup">
+                <h4 class="form-signin-heading">Change your password</h4>
+                <label class="label-form">Old password</label>
+                <input type="password" name="passwords[old]" class="form-control" placeholder="Old password">
+                <label class="label-form">New password</label>
+                <input type="password" name="passwords[new]" class="form-control" placeholder="New password">
+                <br />
+                <br />
+                <button class="btn btn-lg btn-primary" type="submit">Change password</button>
+                <br />
+                <br />
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./ change password modal -->
+    <!-- ./ progress modal -->
   <div class="modal fade" id="modal-progress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -353,7 +350,7 @@
         </div>
       </div>
     </div>
+    <!-- ./ preogress modal -->
   <!-- End Modals -->
 </body>
-
 </html>

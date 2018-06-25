@@ -37,18 +37,24 @@ const onSignIn = function (event) {
       showModalMessage('error', error);
     });
 }
+/* Change password */
 const onChangePassword = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
 
+  $('#modal-change-password, .modal-backdrop').remove();
+
   api.changePassword(data)
-    .then(showModalMessage('success'))
+    .then(() => {
+      showModalMessage('success')
+    })
     .catch((error) => {
       showModalMessage('error', error);
     });
 
   console.log('changing password in ran!')
 }
+/* sing out */
 const onSignOut = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
@@ -67,17 +73,22 @@ const onSignOut = function (event) {
 
   console.log('sign out ran!')
 }
-
+/* show password modal */
 const showPasswordForm = () => {
-  $('#account-form').hide();
-  $('#change-password-form').fadeIn();
+
+  $('#modal-change-password').modal({
+    backdrop: 'static',
+    keyboard: false
+  });
 }
 const showBoard = () => {
   $('#game-board').fadeIn();
 }
+/* clear fields */
 const clearFields = () => {
   $('.form-control').val('');
 }
+/* show the message modal */
 const showModalMessage = (type, error) => {
 
   $('#myModal').modal({
