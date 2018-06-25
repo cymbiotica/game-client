@@ -1,6 +1,7 @@
 const getFormFields = require('../../../lib/get-form-fields');
 const api = require('./api');
-const store = require('../store')
+const store = require('../store');
+const ui = require('../uifiles/ui');
 
 // call the api
 const onSignUp = function (event) {
@@ -22,9 +23,12 @@ const onSignUp = function (event) {
 const onSignIn = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
+  ui.showProgress();
+  setTimeout(function() {
 
-  api.signIn(data)
+    api.signIn(data)
     .then((result) => {
+      ui.hideProgress();
 
       $('#logged-user,#div-content').fadeIn();
       $('#div-content-account').hide();
@@ -34,8 +38,11 @@ const onSignIn = function (event) {
 
     })
     .catch((error) => {
-      showModalMessage('error', error);
+      ui.hideProgress(); showModalMessage('error', error);
     });
+
+  }, 1000);
+
 }
 /* Change password */
 const onChangePassword = function (event) {
