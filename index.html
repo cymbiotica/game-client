@@ -7,7 +7,6 @@
 
   <!-- Do not add `link` tags-->
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet"> -->
 
   <!-- Do not add `script` tags-->
   <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
@@ -21,125 +20,340 @@
       font-weight: bold;
       margin-top: 16px;
     }
+
     .shadow {
       background-color: #fff;
-      border: 1px solid #eee; padding: 10px; border-radius: 4px;
-      box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+      border: 1px solid #eee;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 6px 24px 0px rgba(0, 0, 0, 0.18);
     }
+
     .font-16 {
       font-size: 16px;
     }
+
     .top-70 {
       margin-top: 70px;
     }
+
     .top-100 {
       margin-top: 100px;
     }
+
+    .left-20-percent {
+      margin-left: 20%;
+    }
+    .left-10-percent {
+      margin-left: 10%;
+    }
+    .left-5-percent {
+      margin-left: 5%;
+    }
+    .hr {
+      border: 1px solid #ddd;
+    }
+
+    .tic-tac-toe .scoreboard {
+      margin: auto;
+    }
+
+    .tic-tac-toe .scoreboard .score {
+      text-align: center;
+      font-size: 30px
+    }
+
+    .tic-tac-toe .scoreboard .score.X {
+      color: #238EE1;
+    }
+
+    .tic-tac-toe .scoreboard .score.O {
+      color: #FF1010;
+    }
+
+
+    .tic-tac-toe .board table {
+      cell-spacing: 0px;
+      border-spacing: 0px;
+      border-collapse: separate;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      margin: 30px auto;
+    }
+
+    .tic-tac-toe .board td {
+      border: 2px solid #000;
+      height: 100px;
+      width: 100px;
+      text-align: center;
+      font: 200 60px helvetica neue, arial;
+      cursor: pointer;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .tic-tac-toe .board tr:first-child td {
+      border-top: none
+    }
+
+    .tic-tac-toe .board tr:last-child td {
+      border-bottom: none
+    }
+
+    .tic-tac-toe .board tr td:first-child {
+      border-left: none;
+    }
+
+    .tic-tac-toe .board tr td:last-child {
+      border-right: none;
+    }
+
+    .tic-tac-toe .board td.X {
+      color: #238EE1;
+    }
+
+    .tic-tac-toe .board td.O {
+      color: #FF1010;
+    }
   </style>
 </head>
-<body style="background: url('assets/img/tictactoe.jp'); background-repeat: repeat-y;">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-        aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Tic Tac Toe</a>
+
+<body>
+  <!-- style="background: url('assets/img/tictactoe.jpg'); background-repeat: repeat-y;" -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Tic Tac Toe</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#">Help</a>
+          </li>
+          <li id="logged-user" class="dropdown" style="display: none">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello,
+              <span id="user-email"></span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <br />
+                <a id="show-change-password" href="#">Change password</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a id="sign-out" href="#">Log out</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#">Link</a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li>
-              <a href="#">Something else here</a>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li>
-              <a href="#">Separated link</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+    <!-- /.container-fluid -->
+  </nav>
+  <!-- container-fluid -->
+  <div id="div-content-account" class="container-fluid">
+    <div class="col-md-7 top-100">
+      <h1 class="top-100 left-20-percent">Tic Tac Toe
+        <br />
+        <b>Playing</b> a single
+        <b>game</b> for fun!</h1>
     </div>
-    <!-- /.navbar-collapse -->
+    <div id="account-form" class="col-md-3 shadow top-100">
+      <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#home" class="font-16" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Sign Up</a>
+          </li>
+          <li role="presentation" class="">
+            <a href="#profile" class="font-16" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Log In</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <!-- sign in -->
+          <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
+            <br>
+            <form id="sign-up" class="form-signup">
+              <h4 class="form-signin-heading">Please sign up</h4>
+              <label class="label-form">Email address</label>
+              <input type="email" name="credentials[email]" class="form-control" placeholder="Email address" autofocus="">
+              <label class="label-form">Password</label>
+              <input type="password" name="credentials[password]" class="form-control" placeholder="Password">
+              <label class="label-form">Confirm password</label>
+              <input type="password" name="credentials[password_confirmation]" class="form-control" placeholder="Confirm password">
+              <br />
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>
+              <br />
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+              <br />
+            </form>
+          </div>
+          <!-- ./ sign in -->
+          <!-- log in -->
+          <div class="tab-pane fade" role="tabpanel" id="profile" aria-labelledby="profile-tab">
+            <form id="sign-in" class="form-login">
+              <br />
+              <h4 class="form-signin-heading">Please log in</h4>
+              <label class="label-form">Email address</label>
+              <input type="email" name="credentials[email]" class="form-control" placeholder="Email address" required="" autofocus="">
+              <label class="label-form">Password</label>
+              <input type="password" name="credentials[password]" class="form-control" placeholder="Password" required="">
+              <br />
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>
+              <br />
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+              <br />
+            </form>
+          </div>
+          <!-- ./log in -->
+        </div>
+      </div>
+    </div>
+    <!-- change password -->
+    <div id="change-password-form" class="col-md-3 shadow top-100" style="display: none">
+      <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#" class="font-16" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Change password</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+
+          <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
+            <br>
+            <form id="change-password" class="form-signup">
+              <h4 class="form-signin-heading">Change your password</h4>
+              <label class="label-form">Old password</label>
+              <input type="password" name="passwords[old]" class="form-control" placeholder="Old password">
+              <label class="label-form">New password</label>
+              <input type="password" name="passwords[new]" class="form-control" placeholder="New password">
+              <br />
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+              <br />
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- ./ change password -->
+  </div>
+  <div id="div-content" class="container-fluid" style="display: none">
+    <div class="col-md-2 shadow top-70 left-10-percent" style="min-height: 100px">
+      <h5 class="font-16">Game options</h5>
+      <table class="table">
+        <tr>
+          <td><a id="show-board" href="#">New game</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">Reset game</a></td>
+          </tr>
+      </table>
+    </div>
+    <div id="game-board" class="col-md-5 shadow top-70 left-5-percent" style="display: none">
+        <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
+            <br>
+            <div class="game-panel">
+
+              <div class="tic-tac-toe">
+                <table class="scoreboard">
+                  <tr>
+                    <td> Player 1 </td>
+                    <td width="30"> &nbsp; </td>
+                    <td> Player 2 </td>
+                  </tr>
+                  <tr>
+                    <td class="score X">
+                      0
+                    </td>
+                    <td> &nbsp; </td>
+                    <td class="score O">
+                      0
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="board"></div>
+
+                <button class="btn-reset"> Reset </button>
+
+                <select class="grid-options">
+                  <option value="3" selected> 3 X 3 </option>
+                  <option value="4"> 4 X 4 </option>
+                  <option value="5"> 5 X 5 </option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+    </div>
+    <!-- <div class="col-md-7 top-70 left-5-percent">
+      hola 2
+    </div> -->
   </div>
   <!-- /.container-fluid -->
-</nav>
-<div class="container-fluid">
-  <div class="col-md-7 top-100">
-      <h1 class="top-100" style="margin-left: 20%">Tic Tac Toe <br /> <b>Playing</b> a single <b>game</b> for fun!</h1>
-  </div>
-  <div class="col-md-3 shadow top-100">
-    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
-      <ul class="nav nav-tabs" id="myTabs" role="tablist">
-        <li role="presentation" class="active">
-          <a href="#home" class="font-16" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Sign Up</a>
-        </li>
-        <li role="presentation" class="">
-          <a href="#profile" class="font-16" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Log In</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
-          <br>
-          <form id="sign-up" class="form-signup">
-            <h4 class="form-signin-heading">Please sign up</h4>
-            <!-- <hr /> -->
-            <label class="label-form">Email address</label>
-            <input type="email" name="credentials[email]" class="form-control" placeholder="Email address"  autofocus="">
-            <label class="label-form" class="sr-only">Password</label>
-            <input type="password" name="credentials[password]" class="form-control" placeholder="Password" >
-            <label class="label-form">Confirm password</label>
-            <input type="password" name="credentials[password_confirmation]" class="form-control" placeholder="Confirm password">
-            <br />
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <br />
-          </form>
+  <!-- Modals -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Tic tac toe</h4>
         </div>
-        <div class="tab-pane fade" role="tabpanel" id="profile" aria-labelledby="profile-tab">
-          <form class="form-login">
-            <br />
-            <h4 class="form-signin-heading">Please log in</h4>
-            <label class="label-form" class="sr-only">Email address</label>
-            <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">
-            <label class="label-form" class="sr-only">Password</label>
-            <input type="password" class="form-control" placeholder="Password" required="">
-            <br />
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-            <br />
-          </form>
+        <div class="modal-body">
+          <span id="modal-message"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="modal fade" id="modal-progress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Tic tac toe</h4>
+          </div>
+          <div class="modal-body">
+            <span>Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- End Modals -->
 </body>
+
 </html>
