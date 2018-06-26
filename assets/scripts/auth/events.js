@@ -50,20 +50,20 @@ const onSignIn = function (event) {
 const onChangePassword = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
-
-  $('#modal-change-password, .modal-backdrop').remove();
-
+  //$('#modal-change-password, .modal-backdrop').hide();
   ui.showProgress();
 
   api.changePassword(data)
     .then(() => {
-      ui.hideProgress(); ui.showModalMessage('success')
+
+      ui.hideProgress(); ui.showModalMessage('success');
+      console.log('changing password in ran!')
     })
     .catch((error) => {
       ui.hideProgress(); ui.showModalMessage('error', error);
     });
 
-  console.log('changing password in ran!')
+
 }
 /* sing out */
 const onSignOut = function (event) {

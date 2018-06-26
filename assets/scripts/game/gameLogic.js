@@ -1,4 +1,5 @@
 const ui = require('../uifiles/ui');
+const api = require('./api');
 
 let moves = 0,
   data = {},
@@ -13,16 +14,18 @@ const paintBoard = (size) => {
   let board = parentElement.querySelector('.board');
 
   grid_size = size;
-
+let count=-1;
   let table = '<table>';
   for (let i = 0; i < grid_size; i++) {
     table += '<tr>';
     for (let j = 0; j < grid_size; j++) {
-      table += '<td row="' + i + '" column="' + j + '"></td>';
+      ++count;
+      table += '<td id="' + count + '" row="' + i + '" column="' + j + '"></td>';
     }
     table += "</tr>";
   }
-  console.log(table)
+  count=-1;
+  //console.log(table)
 
   board.innerHTML = table;
 
@@ -30,6 +33,17 @@ const paintBoard = (size) => {
   for (let i = 0; i < columns.length; i++) {
     columns[i].addEventListener('click', markElement);
   }
+
+  // calling the api to create a game
+  // api.creategame()
+  //    .then((data) => {
+  //      console.log(data)
+  //      ui.hideProgress();
+  //      console.log('created game ran!')
+  //    })
+  //    .catch((error) => {
+  //      ui.hideProgress(); ui.showModalMessage('error', error);
+  //    });
 }
 const markElement = () => {
 
@@ -47,14 +61,15 @@ const markElement = () => {
   td.innerHTML = current_mark;
   td.classList.add(current_mark);
   data[row + '' + column] = current_mark;
-  console.log('data', data)
+  //console.log('data', data)
   moves++;
 
-  if(checkForWin(current_mark, grid_size)) {
+
+  if (checkForWin(current_mark, grid_size)) {
 
     let winner = null;
 
-    if(current_mark === 'X') {
+    if (current_mark === 'X') {
       winner = 'Player 1 (x)';
       score_x += 1;
       $("#score_x").text(score_x);

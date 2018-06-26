@@ -248,7 +248,10 @@
             </tr>
             <tr>
                 <td><a id="reset-board" href="#">Reset game</a></td>
-              </tr>
+            </tr>
+            <tr>
+                <td><a id="show-not-completed" href="#">Show not completed</a></td>
+            </tr>
           </table>
       </div>
       <br /><br />
@@ -262,7 +265,7 @@
             <tr>
                 <td><a href="#">Player (o)</a><span id="score_o" class="label label-info pull-right">0</span></td>
             </tr>
-            <tr><td><br /></td></tr>
+
             <tr>
                 <td><a href="#">Tie games</a><span id="tie-games" class="label label-warning pull-right">0</span></td>
             </tr>
@@ -281,10 +284,31 @@
                     <option value="4"> 4 X 4 </option>
                     <option value="5"> 5 X 5 </option>
                 </select>
+                <!-- <button type="button" class="btn btn-info btn-xs">Reset game</button> -->
                 <hr />
               <div class="tic-tac-toe">
                 <div class="board"></div>
               </div>
+            </div>
+          </div>
+    </div>
+    <div id="list-games-not-complete" class="col-md-5 shadow top-70 left-5-percent" style="display: none; min-height: 450px">
+        <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab">
+            <br>
+            <div class="game-panel">
+              <span class="font-16">List of games not completed</span>
+                <!-- <button type="button" class="btn btn-info btn-xs">Reset game</button> -->
+                <hr />
+                <table id="table-games" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <td>Id</td>
+                      <td>Over</td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
             </div>
           </div>
     </div>
@@ -309,8 +333,7 @@
       </div>
     </div>
   </div>
-  <!-- change password modal -->
-  <div class="modal fade" id="modal-change-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <!-- <div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -320,7 +343,25 @@
             <h4 class="modal-title" id="myModalLabel">Tic tac toe</h4>
           </div>
           <div class="modal-body">
-              <br>
+            <span>you have games that you have not completed, would you like to see the list of games not completed?</span>
+          </div>
+          <div class="modal-footer">
+              <button id="show-list-games" type="button" class="btn btn-info" data-dismiss="modal">Yes, Show me the games</button><button id="btn-show-new-game-board" type="button" class="btn btn-info" data-dismiss="modal">No, Create a new game</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  <!-- change password modal -->
+  <div class="modal fade" id="modal-change-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Tic tac toe</h4>
+          </div>
+          <div class="modal-body">
               <form id="change-password" class="form-signup">
                 <h4 class="form-signin-heading">Change your password</h4>
                 <label class="label-form">Old password</label>
@@ -329,7 +370,7 @@
                 <input type="password" name="passwords[new]" class="form-control" placeholder="New password">
                 <br />
                 <br />
-                <button class="btn btn-lg btn-primary" type="submit">Change password</button>
+                <button class="btn btn-primary" type="submit">Change password</button>
                 <br />
                 <br />
               </form>

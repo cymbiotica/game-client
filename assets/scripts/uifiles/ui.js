@@ -7,6 +7,14 @@ const showProgress = () => {
 const hideProgress = () => {
   $('#modal-progress').modal('hide');
 }
+
+const showModalConfirm = () => {
+  $('#confirm-modal').modal({
+    backdrop: 'static',
+    keyboard: false
+  });
+}
+
 /* show the message modal */
 const showModalMessage = (type, error, player) => {
 
@@ -38,5 +46,6 @@ const showModalMessage = (type, error, player) => {
 module.exports = {
   showProgress,
   hideProgress,
-  showModalMessage
+  showModalMessage,
+  showModalConfirm
 }
