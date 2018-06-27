@@ -1,10 +1,10 @@
 const config = require('../config');
 const store = require('../store');
 
-/* Create a new game */
+/**
+ * Request to the games api to create a new game and render the board.
+ */
 const creategame = function () {
-
-  alert(store.user.email)
 
   let data = {
     "game": {
@@ -30,7 +30,11 @@ const creategame = function () {
   });
 
 }
-/* get game by id */
+/**
+ * Request to the games api to get a game by Id.
+ *
+ * @param id  {Int} Id of game to find.
+ */
 const getGameById = function (id) {
   return $.ajax({
     url: config.apiUrl + '/games/' + id,
@@ -42,15 +46,14 @@ const getGameById = function (id) {
     }
   });
 }
-/* Get games created */
+/**
+ * Request to the games api to get games by status.
+ *
+ * @param over  {Boolean} true brings completed games, false brings not complete games.
+ */
 const getGames = function (over) {
-  let url;
 
-  if(over === false) {
-    url = config.apiUrl + '/games?over=false'
-  } else {
-    config.apiUrl + '/games'
-  }
+  let url = (over === false) ? config.apiUrl + '/games?over=false' : config.apiUrl + '/games?over=true';
 
   return $.ajax({
     url: url,
@@ -62,9 +65,41 @@ const getGames = function (over) {
     }
   });
 }
+/**
+ * Request to the games api to update games.
+ *
+ * @param game  {Object} Object game with all its properties.
+ *
+ * Return a promise.
+ */
+const updateGame = function (dataGame, index, value, isOver) {
+
+  let data = {
+    "game": {
+      "cell": {
+        "index": index,
+        "value": value
+      },
+      "over": isOver
+    }
+  }
+
+  return $.ajax({
+    url: config.apiUrl + '/games/' + dataGame.game.id,
+    method: 'PATCH',
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: JSON.stringify(data)
+  });
+
+}
 
 module.exports = {
   creategame,
   getGames,
-  getGameById
+  getGameById,
+  updateGame
 }

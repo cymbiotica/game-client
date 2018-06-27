@@ -1,7 +1,11 @@
 const config = require('../config')
 const store = require('../store')
 
-/* Register an user in the system */
+/**
+ * Request to the authentication api to register an user.
+ *
+ * @param data Information of the user.
+ */
 const signUp = function (data) {
 
   return $.ajax({
@@ -13,7 +17,11 @@ const signUp = function (data) {
   });
 
 }
-/* Log in an user in the system */
+/**
+ * Request to the authentication api to log in an user.
+ *
+ * @param data Information of the user.
+ */
 const signIn = function (data) {
 
   return $.ajax({
@@ -25,7 +33,11 @@ const signIn = function (data) {
   });
 
 }
-/* Change password */
+/**
+ * Request to the authentication api to change password of an user.
+ *
+ * @param data Information of the user.
+ */
 const changePassword = function (data) {
   return $.ajax({
     url: config.apiUrl + '/change-password',
@@ -37,7 +49,11 @@ const changePassword = function (data) {
   })
 }
 
-/* Sign out an user in the system */
+/**
+ * Request to the authentication api to sign out an user.
+ *
+ * @param data Information of the user.
+ */
 const signOut = function (data) {
   console.log(store.user.token);
   return $.ajax({

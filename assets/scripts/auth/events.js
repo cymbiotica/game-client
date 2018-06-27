@@ -3,7 +3,11 @@ const api = require('./api');
 const store = require('../store');
 const ui = require('../uifiles/ui');
 
-// call the api
+/**
+ * Register the user.
+ *
+ * @param event submit event.
+ */
 const onSignUp = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
@@ -13,11 +17,11 @@ const onSignUp = function (event) {
   api.signUp(data)
     .then(() => {
       clearFields(); ui.hideProgress();
-      showModalMessage('UserRegistrated');
+      ui.showModalMessage('UserRegistrated');
       console.log('sign up ran!');
     })
     .catch((error) => {
-      ui.hideProgress(); showModalMessage('error', error);
+      ui.hideProgress(); ui.showModalMessage('error', error);
     });
 
 }
@@ -70,21 +74,21 @@ const onSignOut = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
 
-  ui.hideProgress();
+  ui.showProgress();
 
   api.signOut(data)
     .then(() => {
+
       clearFields(); ui.hideProgress();
       $('#logged-user,#div-content').hide();
       $('#div-content-account').fadeIn();
       $('#logged-user').fadeOut();
       $('#user-email').text(''), store.user = null;
+      console.log('sign out ran!')
     })
     .catch((error) => {
       ui.hideProgress(); ui.showModalMessage('error', error);
     });
-
-  console.log('sign out ran!')
 }
 /* show password modal */
 const showPasswordForm = () => {

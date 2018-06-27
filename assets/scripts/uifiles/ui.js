@@ -25,7 +25,7 @@ const showModalMessage = (type, error, player) => {
 
   switch (type) {
     case 'UserRegistrated':
-      $('#modal-message').text('Thank you for sign In in Tic Tac Toe Game :)');
+      $('#modal-message').text('Thank you for sign In. Tic Tac Toe Game :)');
       break;
     case 'success':
       $('#modal-message').text('Your request was successful :)');

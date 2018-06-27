@@ -6,22 +6,11 @@ let moves = 0,
   grid_size = 0,
   score_x = 0,
   score_o = 0,
-  tie = 0;
+  tie = 0,
+  gameData = {},
+  lastPlayMade = null;
 
-function chunkArray(myArray, chunk_size) {
-  let index = 0;
-  let arrayLength = myArray.length;
-  let tempArray = [];
-  let myChunk = null;
 
-  for (index = 0; index < arrayLength; index += chunk_size) {
-    myChunk = myArray.slice(index, index + chunk_size);
-    // Do something if you want with the group
-    tempArray.push(myChunk);
-  }
-
-  return tempArray;
-}
 const paintBoardGameCreated = (size, game) => {
 
   let parentElement = document.querySelector('.game-panel');
@@ -29,47 +18,66 @@ const paintBoardGameCreated = (size, game) => {
 
   grid_size = size;
 
-  //let arr = game.cells;
-  let arr = ["X", "O", "", "X", "", "", "", "", "O"]; // test array
+  let arr = game.game.cells;
+  // filling this variable to update the game.
+  gameData = game;
+  //let arr = ["X", "O", "", "X", "", "", "", "", "O"]; // test array
+  let x_count = 0;
+  let o_count = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == 'X') {
+      x_count++
+    } else if (arr[i] == 'O') {
+      o_count++;
+    }
+  }
+  console.log(x_count, o_count)
+  if (x_count >= o_count) {
+    lastPlayMade = "O";
+  } else {
+    lastPlayMade = "X"
+  }
+  console.log(lastPlayMade)
+  // spliting the array in three arrays
   let arrayList = chunkArray(arr, 3);
   let arrayOne = arrayList[0];
   let arrayTwo = arrayList[1];
   let arrayThree = arrayList[2];
 
-  // Inicio codigo bastardo
+  // bastard code begings here
   let table = '<table>';
   table += '<tr>';
   for (let i = 0; i < arrayOne.length; i++) {
 
-    table += '<td row="' + 0 + '" column="' + i + '">' + arrayOne[i] + '</td>';
+    table += '<td row="' + 0 + '" column="' + i + '">' + arrayOne[i].toUpperCase() + '</td>';
     data[0 + '' + i] = arrayOne[i]
   }
 
   table += "</tr>";
-  console.log(arrayOne);
+  //console.log(arrayOne);
   table += '<tr>';
 
   for (let i = 0; i < arrayTwo.length; i++) {
 
-    table += '<td row="' + 1 + '" column="' + i + '">' + arrayTwo[i] + '</td>';
+    table += '<td row="' + 1 + '" column="' + i + '">' + arrayTwo[i].toUpperCase() + '</td>';
     data[1 + '' + i] = arrayTwo[i]
   }
 
   table += "</tr>";
-  console.log(arrayTwo);
+  //console.log(arrayTwo);
   table += '<tr>';
 
   for (let i = 0; i < arrayThree.length; i++) {
 
-    table += '<td row="' + 2 + '" column="' + i + '">' + arrayThree[i] + '</td>';
+    table += '<td row="' + 2 + '" column="' + i + '">' + arrayThree[i].toUpperCase() + '</td>';
     data[2 + '' + i] = arrayThree[i]
 
   }
 
   table += "</tr>";
-  console.log(arrayThree);
-  console.log(data)
+  //console.log(arrayThree);
+  //console.log(data)
   board.innerHTML = table;
 
   let columns = board.getElementsByTagName('td');
@@ -79,83 +87,115 @@ const paintBoardGameCreated = (size, game) => {
 }
 const paintBoard = (size) => {
 
-  let parentElement = document.querySelector('.game-panel');
-  let board = parentElement.querySelector('.board');
+  ui.showProgress();
+  //calling the api to create a game
+  api.creategame()
+    .then((data) => {
 
-  grid_size = size;
-  let count = -1;
-  let table = '<table>';
-  for (let i = 0; i < grid_size; i++) {
-    table += '<tr>';
-    for (let j = 0; j < grid_size; j++) {
-      ++count;
-      table += '<td id="' + count + '" row="' + i + '" column="' + j + '"></td>';
-    }
-    table += "</tr>";
-  }
-  count = -1;
-  //console.log(table)
+      ui.hideProgress();
+      console.log('created game ran!');
 
-  board.innerHTML = table;
+      let parentElement = document.querySelector('.game-panel');
+      let board = parentElement.querySelector('.board');
 
-  let columns = board.getElementsByTagName('td');
-  for (let i = 0; i < columns.length; i++) {
-    columns[i].addEventListener('click', markElement);
-  }
+      grid_size = size;
+      let table = '<table>';
+      for (let i = 0; i < grid_size; i++) {
+        table += '<tr>';
+        for (let j = 0; j < grid_size; j++) {
+          table += '<td row="' + i + '" column="' + j + '"></td>';
+        }
+        table += "</tr>";
+      }
 
-  // calling the api to create a game
-  // api.creategame()
-  //    .then((data) => {
-  //      console.log(data)
-  //      ui.hideProgress();
-  //      console.log('created game ran!')
-  //    })
-  //    .catch((error) => {
-  //      ui.hideProgress(); ui.showModalMessage('error', error);
-  //    });
+      board.innerHTML = table;
+
+      let columns = board.getElementsByTagName('td');
+      for (let i = 0; i < columns.length; i++) {
+        columns[i].addEventListener('click', markElement);
+      }
+      console.log('render board ran!');
+    })
+    .catch((error) => {
+      ui.hideProgress(); ui.showModalMessage('error', error);
+    });
 }
 const markElement = () => {
 
   let td = event.target;
 
   if (td.innerHTML) {
-    return;
+    console.log('You can not update this cell :('); return;
   }
 
   // get values rows and collums
   let row = td.getAttribute('row'), column = td.getAttribute('column');
 
   let current_mark = moves % 2 === 0 ? 'X' : 'O';
-
+  console.log(Math.pow(grid_size, 2))
+  // let current_mark;
+  // if(lastPlayMade == null) {
+  //   current_mark = moves % 2 === 0 ? 'X' : 'O';
+  // } else {
+  //   if(lastPlayMade == 'X'){
+  //     current_mark = 'O';
+  //   } else {
+  //     current_mark = lastPlayMade;
+  //   }
+  // }
+  console.log(current_mark)
   td.innerHTML = current_mark;
-  //td.classList.add(current_mark);
   data[row + '' + column] = current_mark;
-  //console.log('data', data)
   moves++;
+
+  // getting the index that is going to be update.
+  let index = setCellValue(row, column, current_mark, gameData);
+
+  updateCell(gameData, index, current_mark, false);
 
   if (checkForWin(current_mark, grid_size)) {
 
     let winner = null;
 
     if (current_mark === 'X') {
-      winner = 'Player 1 (x)';
+      winner = 'Player 1 (X)';
       score_x += 1;
       $("#score_x").text(score_x);
     } else {
-      winner = 'Player 2 (o)';
+      winner = 'Player 2 (O)';
       score_o += 1;
       $("#score_o").text(score_o);
     }
 
+    updateCell(gameData, index, current_mark, true);
+
+    // reset game
+    resetGame();
     //let winner = current_mark === 'X' ? 'Player 1 ' : 'Player 2 '
     ui.showModalMessage('userWon', null, winner);
-  } else if (moves === Math.pow(grid_size, 2)) {
+  } else if (moves === Math.pow(grid_size, 2)) { // Math.pow(grid_size, 2)
     ui.showModalMessage('tie');
     tie += 1;
     $("#tie-games").text(tie);
+
+    updateCell(gameData, index, current_mark, true);
+
+    // reset game
     resetGame();
   }
 
+}
+const updateCell = (gameData, index, current_mark, isOver) => {
+  api.updateGame(gameData, index, current_mark, isOver)
+    .then((result) => {
+
+      console.log('update cell ran!');
+      console.log(result.game);
+
+    })
+    .catch((error) => {
+      ui.showModalMessage('error', error);
+    });
 }
 const checkForWin = (mark, grid_size) => {
   let vertical_count = 0,
@@ -177,7 +217,6 @@ const checkForWin = (mark, grid_size) => {
       if (data[j + '' + i] == mark) {
         vertical_count++;
       }
-
     }
 
     if (data[i + '' + i] == mark) {
@@ -200,11 +239,79 @@ const checkForWin = (mark, grid_size) => {
 
   return false;
 }
+/**
+ * Set the value to the cell in the array of cells in the game array with the cell marked in the board.
+ *
+ * @param row  Type => Number. Row selected in the html board.
+ * @param column  Type => Number. Column selected in the html board.
+ * @param current_mark  Type => String. Value asigned to row and column in the html board.
+ * @param gamedata  Type => Object. Object with all the information of the game.
+ *
+ * Return index of the array Type => Number
+ */
+const setCellValue = (row, column, current_mark, gamedata) => {
 
+  let index = null;
+
+  if (row == 0 && column == 0) {
+    index = 0;
+    gamedata.game.cells.splice(0, 1, current_mark);
+
+  } else if (row == 0 && column == 1) {
+    index = 1;
+    gamedata.game.cells.splice(1, 1, current_mark);
+
+  } else if (row == 0 && column == 2) {
+    index = 2;
+    gamedata.game.cells.splice(2, 1, current_mark);
+
+  } else if (row == 1 && column == 0) {
+    index = 3;
+    gamedata.game.cells.splice(3, 1, current_mark);
+
+  } else if (row == 1 && column == 1) {
+    index = 4;
+    gamedata.game.cells.splice(4, 1, current_mark);
+
+  } else if (row == 1 && column == 2) {
+    index = 5;
+    gamedata.game.cells.splice(5, 1, current_mark);
+
+  } else if (row == 2 && column == 0) {
+    index = 6;
+    gamedata.game.cells.splice(6, 1, current_mark);
+
+  } else if (row == 2 && column == 1) {
+    index = 7;
+    gamedata.game.cells.splice(7, 1, current_mark);
+
+  } else if (row == 2 && column == 2) {
+    index = 8;
+    gamedata.game.cells.splice(8, 1, current_mark);
+
+  }
+
+  return index;
+}
+// code provided by google :)
+function chunkArray(myArray, chunk_size) {
+  let index = 0;
+  let arrayLength = myArray.length;
+  let tempArray = [];
+  let myChunk = null;
+
+  for (index = 0; index < arrayLength; index += chunk_size) {
+    myChunk = myArray.slice(index, index + chunk_size);
+    // Do something if you want with the group
+    tempArray.push(myChunk);
+  }
+
+  return tempArray;
+}
 const resetGame = () => {
-  $('#div-table-board').empty();
+  $('.board').empty();
   moves = 0;
-  paintBoard(3);
+  //paintBoard(3);
   data = {};
   //$("#selectsize").val("0");
 }
