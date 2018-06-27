@@ -1,2 +1,116 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+.label-form {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+.modal-img {
+  width: 34px;
+  height: 34px;
+}
+.shadow {
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 6px 24px 0px rgba(0, 0, 0, 0.18);
+}
+
+.font-16 {
+  font-size: 16px;
+}
+.width-20-percent {
+  width: 20%;
+}
+.top-70 {
+  margin-top: 70px;
+}
+.top-10 {
+  margin-top: 10px;
+}
+.top-100 {
+  margin-top: 100px;
+}
+
+.left-20-percent {
+  margin-left: 20%;
+}
+.left-10-percent {
+  margin-left: 10%;
+}
+.left-5-percent {
+  margin-left: 5%;
+}
+.hr {
+  border: 1px solid #ddd;
+}
+
+.tic-tac-toe .scoreboard {
+  margin: auto;
+}
+
+.tic-tac-toe .scoreboard .score {
+  text-align: center;
+  font-size: 30px
+}
+
+.tic-tac-toe .scoreboard .score.X {
+  color: #238EE1;
+}
+
+.tic-tac-toe .scoreboard .score.O {
+  color: #FF1010;
+}
+
+
+.tic-tac-toe .board table {
+  cell-spacing: 0px;
+  border-spacing: 0px;
+  border-collapse: separate;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin: 30px auto;
+}
+
+.tic-tac-toe .board td {
+  border: 2px solid #000;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  font: 200 60px helvetica neue, arial;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.tic-tac-toe .board tr:first-child td {
+  border-top: none
+}
+
+.tic-tac-toe .board tr:last-child td {
+  border-bottom: none
+}
+
+.tic-tac-toe .board tr td:first-child {
+  border-left: none;
+}
+
+.tic-tac-toe .board tr td:last-child {
+  border-right: none;
+}
+
+.tic-tac-toe .board td.X {
+  color: #238EE1;
+}
+
+.tic-tac-toe .board td.O {
+  color: #FF1010;
+}
