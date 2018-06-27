@@ -8,13 +8,82 @@ let moves = 0,
   score_o = 0,
   tie = 0;
 
+function chunkArray(myArray, chunk_size) {
+  let index = 0;
+  let arrayLength = myArray.length;
+  let tempArray = [];
+  let myChunk = null;
+
+  for (index = 0; index < arrayLength; index += chunk_size) {
+    myChunk = myArray.slice(index, index + chunk_size);
+    // Do something if you want with the group
+    tempArray.push(myChunk);
+  }
+
+  return tempArray;
+}
+const paintBoardGameCreated = (size, game) => {
+
+  let parentElement = document.querySelector('.game-panel');
+  let board = parentElement.querySelector('.board');
+
+  grid_size = size;
+
+  //let arr = game.cells;
+  let arr = ["X", "O", "", "X", "", "", "", "", "O"]; // test array
+
+  let arrayList = chunkArray(arr, 3);
+  let arrayOne = arrayList[0];
+  let arrayTwo = arrayList[1];
+  let arrayThree = arrayList[2];
+
+  // Inicio codigo bastardo
+  let table = '<table>';
+  table += '<tr>';
+  for (let i = 0; i < arrayOne.length; i++) {
+
+    table += '<td row="' + 0 + '" column="' + i + '">' + arrayOne[i] + '</td>';
+    data[0 + '' + i] = arrayOne[i]
+  }
+
+  table += "</tr>";
+  console.log(arrayOne);
+  table += '<tr>';
+
+  for (let i = 0; i < arrayTwo.length; i++) {
+
+    table += '<td row="' + 1 + '" column="' + i + '">' + arrayTwo[i] + '</td>';
+    data[1 + '' + i] = arrayTwo[i]
+  }
+
+  table += "</tr>";
+  console.log(arrayTwo);
+  table += '<tr>';
+
+  for (let i = 0; i < arrayThree.length; i++) {
+
+    table += '<td row="' + 2 + '" column="' + i + '">' + arrayThree[i] + '</td>';
+    data[2 + '' + i] = arrayThree[i]
+
+  }
+
+  table += "</tr>";
+  console.log(arrayThree);
+  console.log(data)
+  board.innerHTML = table;
+
+  let columns = board.getElementsByTagName('td');
+  for (let i = 0; i < columns.length; i++) {
+    columns[i].addEventListener('click', markElement);
+  }
+}
 const paintBoard = (size) => {
 
   let parentElement = document.querySelector('.game-panel');
   let board = parentElement.querySelector('.board');
 
   grid_size = size;
-let count=-1;
+  let count = -1;
   let table = '<table>';
   for (let i = 0; i < grid_size; i++) {
     table += '<tr>';
@@ -24,7 +93,7 @@ let count=-1;
     }
     table += "</tr>";
   }
-  count=-1;
+  count = -1;
   //console.log(table)
 
   board.innerHTML = table;
@@ -59,11 +128,10 @@ const markElement = () => {
   let current_mark = moves % 2 === 0 ? 'X' : 'O';
 
   td.innerHTML = current_mark;
-  td.classList.add(current_mark);
+  //td.classList.add(current_mark);
   data[row + '' + column] = current_mark;
   //console.log('data', data)
   moves++;
-
 
   if (checkForWin(current_mark, grid_size)) {
 
@@ -136,11 +204,12 @@ const checkForWin = (mark, grid_size) => {
 const resetGame = () => {
   $('#div-table-board').empty();
   moves = 0;
-  paintBoard(0);
+  paintBoard(3);
   data = {};
-  $("#selectsize").val("0");
+  //$("#selectsize").val("0");
 }
 module.exports = {
   paintBoard,
-  resetGame
+  resetGame,
+  paintBoardGameCreated
 }
