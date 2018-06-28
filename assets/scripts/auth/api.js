@@ -55,7 +55,7 @@ const changePassword = function (data) {
  * @param data Information of the user.
  */
 const signOut = function (data) {
-  console.log(store.user.token);
+  //console.log(store.user.token);
   return $.ajax({
     url: config.apiUrl + '/sign-out',
     method: 'DELETE',

@@ -18,7 +18,7 @@ const onSignUp = function (event) {
     .then(() => {
       clearFields(); ui.hideProgress();
       ui.showModalMessage('UserRegistrated');
-      console.log('sign up ran!');
+      //console.log('sign up ran!');
     })
     .catch((error) => {
       ui.hideProgress(); ui.showModalMessage('error', error);
@@ -40,7 +40,7 @@ const onSignIn = function (event) {
       $('#div-content-account').hide();
       $('#user-email').text(result.user.email);
       store.user = result.user;
-      console.log('sign In ran!');
+      //console.log('sign In ran!');
 
     })
     .catch((error) => {
@@ -54,14 +54,14 @@ const onSignIn = function (event) {
 const onChangePassword = function (event) {
   event.preventDefault()
   const data = getFormFields(this);
-  //$('#modal-change-password, .modal-backdrop').hide();
+  $('#modal-change-password, .modal-backdrop').hide();
   ui.showProgress();
 
   api.changePassword(data)
     .then(() => {
 
       ui.hideProgress(); ui.showModalMessage('success');
-      console.log('changing password in ran!')
+      //console.log('changing password in ran!')
     })
     .catch((error) => {
       ui.hideProgress(); ui.showModalMessage('error', error);
@@ -84,7 +84,7 @@ const onSignOut = function (event) {
       $('#div-content-account').fadeIn();
       $('#logged-user').fadeOut();
       $('#user-email').text(''), store.user = null;
-      console.log('sign out ran!')
+      //console.log('sign out ran!')
     })
     .catch((error) => {
       ui.hideProgress(); ui.showModalMessage('error', error);

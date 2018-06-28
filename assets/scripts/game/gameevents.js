@@ -21,7 +21,7 @@ const showNotCompleted = () => {
      .then((data) => {
 
        ui.hideProgress();
-       console.log('get all games ran!')
+       //console.log('get all games ran!')
 
        $('#list-games-not-complete').fadeIn();
 
@@ -37,7 +37,7 @@ const showNotCompleted = () => {
              api.getGameById(element.id)
                 .then((result) => {
 
-                  console.log('get game by id ran!')
+                  //console.log('get game by id ran!')
                   // painting the board with the object game that is coming.
                   gamelogic.paintBoardGameCreated(3, result);
 

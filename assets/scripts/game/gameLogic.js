@@ -32,13 +32,13 @@ const paintBoardGameCreated = (size, game) => {
       o_count++;
     }
   }
-  console.log(x_count, o_count)
+  //console.log(x_count, o_count)
   if (x_count >= o_count) {
     lastPlayMade = "O";
   } else {
     lastPlayMade = "X"
   }
-  console.log(lastPlayMade)
+  //console.log(lastPlayMade)
   // spliting the array in three arrays
   let arrayList = chunkArray(arr, 3);
   let arrayOne = arrayList[0];
@@ -92,8 +92,9 @@ const paintBoard = (size) => {
   api.creategame()
     .then((data) => {
 
+      gameData = data;
       ui.hideProgress();
-      console.log('created game ran!');
+      //console.log('created game ran!');
 
       let parentElement = document.querySelector('.game-panel');
       let board = parentElement.querySelector('.board');
@@ -114,7 +115,7 @@ const paintBoard = (size) => {
       for (let i = 0; i < columns.length; i++) {
         columns[i].addEventListener('click', markElement);
       }
-      console.log('render board ran!');
+      //console.log('render board ran!');
     })
     .catch((error) => {
       ui.hideProgress(); ui.showModalMessage('error', error);
@@ -125,14 +126,15 @@ const markElement = () => {
   let td = event.target;
 
   if (td.innerHTML) {
-    console.log('You can not update this cell :('); return;
+    //console.log('You can not update this cell :(');
+     return;
   }
 
   // get values rows and collums
   let row = td.getAttribute('row'), column = td.getAttribute('column');
 
   let current_mark = moves % 2 === 0 ? 'X' : 'O';
-  console.log(Math.pow(grid_size, 2))
+ // console.log(Math.pow(grid_size, 2))
   // let current_mark;
   // if(lastPlayMade == null) {
   //   current_mark = moves % 2 === 0 ? 'X' : 'O';
@@ -143,7 +145,7 @@ const markElement = () => {
   //     current_mark = lastPlayMade;
   //   }
   // }
-  console.log(current_mark)
+  //console.log(current_mark)
   td.innerHTML = current_mark;
   data[row + '' + column] = current_mark;
   moves++;
@@ -189,8 +191,8 @@ const updateCell = (gameData, index, current_mark, isOver) => {
   api.updateGame(gameData, index, current_mark, isOver)
     .then((result) => {
 
-      console.log('update cell ran!');
-      console.log(result.game);
+      //console.log('update cell ran!');
+      //console.log(result.game);
 
     })
     .catch((error) => {
