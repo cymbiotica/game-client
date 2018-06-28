@@ -7,7 +7,7 @@ Overview
 This was my first project at General Assembly boot camp and consists of developing a single Tic Tac Toe game that works in the browser.
 
 Prerequisites
-Only click this link https://fvargasg.github.io/Tictactoe/
+Only click this link https://fvargasg.github.io/game-client/
 
 User stories
 Users can sign up
