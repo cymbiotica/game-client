@@ -37,7 +37,6 @@ The forms and modals were done using Bootstrap.
 Javascript is used to build the game logic, send AJAX calls and jQuery is used to interact with the DOM and update the view
 Contributing
 
-Versioning
 Version 1.0
 
 Authors
